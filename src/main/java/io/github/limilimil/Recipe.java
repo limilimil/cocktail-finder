@@ -1,18 +1,23 @@
 package io.github.limilimil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Recipe {
     private String name;
     private String description;
-    private String directions;
+    private String[] directions;
     private ArrayList<Ingredient> ingredients;
 
-    public Recipe(String name, String description, String directions) {
-        this.name = name;
-        this.description = description;
-        this.directions = directions;
-        ingredients = new ArrayList<>();
+//    public Recipe(String name, String description, String directions) {
+//        this.name = name;
+//        this.description = description;
+//        this.directions = directions;
+//        ingredients = new ArrayList<>();
+//    }
+
+    public Recipe() {
+
     }
 
     public String getName() {
@@ -31,11 +36,11 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getDirections() {
+    public String[] getDirections() {
         return directions;
     }
 
-    public void setDirections(String directions) {
+    public void setDirections(String[] directions) {
         this.directions = directions;
     }
 
@@ -65,5 +70,19 @@ public class Recipe {
         ingredients.remove(ingredient);
     }
 
+    public void setIngredients(Ingredient[] ingredients) {
+        this.ingredients = new ArrayList<>(Arrays.asList(ingredients));
+    }
 
+    public String printIngredients() {
+        return Utility.numberedStringList(ingredients);
+    }
+
+    public String printDirections() {
+        return Utility.numberedStringList(directions);
+    }
+
+    public String toString() {
+        return "Cocktail: " + name + "\n" + description + "\n" + "Ingredients: \n" + printIngredients() + "Directions: \n" + printDirections();
+    }
 }
