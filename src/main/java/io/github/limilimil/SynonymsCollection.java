@@ -9,6 +9,7 @@ public class SynonymsCollection {
     private Synonyms whiskySynonyms;
     private Synonyms energyDrinkSynonyms;
     private Synonyms colaSynonyms;
+    private Synonyms testSynonyms;
 
 
 
@@ -16,7 +17,7 @@ public class SynonymsCollection {
         synonymsCollection = new ArrayList<>();
 
         whiskySynonyms = new Synonyms();
-        whiskySynonyms.addAll(new String[]{"whisky", "whiskey", "scotch", "jack daniels"});
+        whiskySynonyms.addAll(new String[]{"whisky", "whiskey", "scotch", "jack daniels", "irish whiskey"});
         synonymsCollection.add(whiskySynonyms);
 
         energyDrinkSynonyms = new Synonyms();
@@ -27,12 +28,16 @@ public class SynonymsCollection {
         colaSynonyms.addAll(new String[]{"cola", "coca cola", "coke", "pepsi", "pepsei"});
         synonymsCollection.add(colaSynonyms);
 
+        testSynonyms = new Synonyms();
+        testSynonyms.addAll(new String[]{"test synonyms", "rum", "vodka", "gin bar", "lemon", "lime", "beer", "ice cubes", "ice"});
+        synonymsCollection.add(testSynonyms);
+
 
     }
 
     public Synonyms getSynonyms(String word) {
         for(Synonyms i : synonymsCollection) {
-            if (i.contains(word)) {
+            if (i.contains(Utility.normalizeString(word))) {
                 return i;
             }
         }

@@ -78,6 +78,14 @@ public class Recipe {
         return Utility.numberedStringList(ingredients);
     }
 
+    public String printIngredientsWithSynonyms() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Ingredient i : ingredients) {
+            stringBuilder.append(i.getName()).append(" contains synonyms: ").append(i.getSynonyms()).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
     public String printDirections() {
         return Utility.numberedStringList(directions);
     }

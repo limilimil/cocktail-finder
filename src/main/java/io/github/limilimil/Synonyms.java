@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class Synonyms {
 ////    private HashMap<String, String> whiskySynonyms;
@@ -19,9 +20,21 @@ public class Synonyms {
 //    }
 
     private Set<String> synonyms;
+    private Pattern regexPattern;
+
 
     public Synonyms() {
         synonyms = new HashSet<>();
+
+    }
+
+    public Synonyms(String[] array) {
+        synonyms = new HashSet<>();
+        synonyms.addAll(Arrays.asList(array));
+        String joinedString = String.join("\\b|\\b", synonyms);
+        joinedString = joinedString.replaceAll("^|$", "\\\\b");
+        regexPattern = Pattern.compile(joinedString, Pattern.CASE_INSENSITIVE);
+
     }
 
     public void add(String string) {
@@ -33,12 +46,19 @@ public class Synonyms {
     }
 
     public boolean contains(String string) {
-        return synonyms.contains(string);
+        return synonyms.contains(string) || regexPattern.matcher(string).find();
     }
 
     public String toString() {
         return "This set of synonyms contains: " + synonyms.toString();
     }
 
+    public void printRegexPattern() {
+        System.out.println(regexPattern);
+    }
+
+//    public boolean matchPattern(String string) {
+//
+//    }
 
 }
