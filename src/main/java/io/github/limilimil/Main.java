@@ -96,10 +96,10 @@ public class Main {
         JSONParser parser = new JSONParser();
         Set<String> fileList = parser.collectFilePaths("src/main/resources/recipes");
         ArrayList<Recipe> recipes = parser.parseJSONRecipes(fileList);
-        System.out.println(recipes.get(101).printIngredientsWithSynonyms());
-        System.out.println(recipes.get(102).printIngredientsWithSynonyms());
-        System.out.println(recipes.get(500).printIngredientsWithSynonyms());
-        System.out.println(recipes.get(222).printIngredientsWithSynonyms());
+//        System.out.println(recipes.get(101).printIngredientsWithSynonyms());
+//        System.out.println(recipes.get(102).printIngredientsWithSynonyms());
+//        System.out.println(recipes.get(300).printIngredientsWithSynonyms());
+//        System.out.println(recipes.get(222).printIngredientsWithSynonyms());
 //        parser.setSynonyms(recipes.get(101));
 //        System.out.println(recipes.get(101).getIngredient("Irish whiskey").getSynonyms());
 
@@ -118,9 +118,23 @@ public class Main {
 //
 //        Thesaurus.whiskySynonyms.printRegexPattern();
 
+        ArrayList<String> aList = new ArrayList<>();
+        for (Recipe i: recipes) {
+            if (i.getIngredients().size() > 6) {
+                aList.add(i.getName());
+            }
+        }
+        aList.sort(String::compareToIgnoreCase);
+        for(String i : aList) {
+            System.out.println(i);
+        }
+        System.out.println(aList.size());
 
-
-
+        for(Recipe i : recipes) {
+            if(i.hasIngredient("soju")  || i.hasIngredient("Soju")) {
+                System.out.println(i.getName() + " contains advocaat");
+            }
+        }
 
     }
 

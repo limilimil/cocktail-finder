@@ -8,7 +8,7 @@ public class Recipe {
     private String description;
     private String[] directions;
     private ArrayList<Ingredient> ingredients;
-
+    private ArrayList<String> keywords;
 //    public Recipe(String name, String description, String directions) {
 //        this.name = name;
 //        this.description = description;
@@ -92,5 +92,47 @@ public class Recipe {
 
     public String toString() {
         return "Cocktail: " + name + "\n" + description + "\n" + "Ingredients: \n" + printIngredients() + "Directions: \n" + printDirections();
+    }
+
+    public ArrayList<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(ArrayList<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public boolean isSuper() {
+        return this.keywords.contains("non-alcoholic")
+                || this.keywords.contains("alcoholic")
+                || this.keywords.contains("vodka")
+                || this.keywords.contains("Vodka")
+                || this.keywords.contains("sherry")
+                || this.keywords.contains("Sherry")
+                || this.keywords.contains("vermouth")
+                || this.keywords.contains("brandy")
+                || this.keywords.contains("tequila")
+                || this.keywords.contains("wine")
+                || this.keywords.contains("Wine")
+                || this.keywords.contains("red wine")
+                || this.keywords.contains("alcohol")
+                || this.keywords.contains("whisky")
+                || this.keywords.contains("gin")
+                || this.keywords.contains("scotch")
+                || this.keywords.contains("bourbon")
+                || this.keywords.contains("liqueur")
+                || this.keywords.contains("rum")
+                || this.keywords.contains("whiskey")
+                || this.keywords.contains("schnapps")
+                || this.keywords.contains("Alcoholic")
+                || this.keywords.contains("champagne")
+                || this.keywords.contains("Rum")
+                || this.keywords.contains("cointreau")
+                || this.keywords.contains("absinthe")
+                || this.keywords.contains("Schnapps");
+    }
+
+    public boolean isNonAlcoholic() {
+        return this.keywords.contains("non-alcoholic") || this.keywords.contains("Non-alcoholic");
     }
 }
