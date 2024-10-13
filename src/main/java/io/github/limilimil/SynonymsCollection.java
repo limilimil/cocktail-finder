@@ -1,8 +1,11 @@
 package io.github.limilimil;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class SynonymsCollection {
     private ArrayList<Synonyms> synonymsCollection;
@@ -15,24 +18,7 @@ public class SynonymsCollection {
 
     public SynonymsCollection() {
         synonymsCollection = new ArrayList<>();
-
-        whiskySynonyms = new Synonyms();
-        whiskySynonyms.addAll(new String[]{"whisky", "whiskey", "scotch", "jack daniels", "irish whiskey"});
-        synonymsCollection.add(whiskySynonyms);
-
-        energyDrinkSynonyms = new Synonyms();
-        energyDrinkSynonyms.addAll(new String[]{"energy drink", "red bull"});
-        synonymsCollection.add(energyDrinkSynonyms);
-
-        colaSynonyms = new Synonyms();
-        colaSynonyms.addAll(new String[]{"cola", "coca cola", "coke", "pepsi", "pepsei"});
-        synonymsCollection.add(colaSynonyms);
-
-        testSynonyms = new Synonyms();
-        testSynonyms.addAll(new String[]{"test synonyms", "rum", "vodka", "gin bar", "lemon", "lime", "beer", "ice cubes", "ice"});
-        synonymsCollection.add(testSynonyms);
-
-
+        parseCSV();
     }
 
     public Synonyms getSynonyms(String word) {
@@ -44,8 +30,34 @@ public class SynonymsCollection {
         return null;
     }
 
+    public void parseCSV() {
+        try (Scanner scanner = new Scanner(Paths.get("src/main/resources/synonyms.csv"))) {
+            while (scanner.hasNextLine()) {
+                String i = scanner.nextLine();
+                String[] parts = i.split(",");
+                String[] synonyms = parts[0].split(";");
+                String[] exclusions;
+                try {
+                    exclusions = parts[1].split(";");
+                } catch (Exception e) {
+                    exclusions = new String[0];
+                }
+                synonymsCollection.add(new Synonyms(synonyms, exclusions));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public Synonyms synonymsFinder(String ingredient) {
+        for(Synonyms i : synonymsCollection) {
+            if(i.contains(ingredient)) {
+                return i;
+            }
+        }
 
+        return null;
+    }
 
 
 

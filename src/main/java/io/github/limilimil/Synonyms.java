@@ -7,24 +7,16 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Synonyms {
-////    private HashMap<String, String> whiskySynonyms;
-//    private HashSet<String> whiskySynonyms;
-//
-//    public Synonyms() {
-////        whiskySynonyms = Utility.arrayToHashMap(new String[]{"whisky", "whiskey", "scotch", "jack daniels"}, "whisky");
-//        whiskySynonyms = new HashSet<>();
-//        whiskySynonyms.put()
-//    }
-//    public String getSynonym(String string) {
-//        return whiskySynonyms.getOrDefault(string, null);
-//    }
 
     private Set<String> synonyms;
+    private Set<String> exclusions;
     private Pattern regexPattern;
+    private Pattern exclusionsRegexPattern;
 
 
     public Synonyms() {
         synonyms = new HashSet<>();
+        exclusions = new HashSet<>();
 
     }
 
@@ -35,6 +27,23 @@ public class Synonyms {
         joinedString = joinedString.replaceAll("^|$", "\\\\b");
         regexPattern = Pattern.compile(joinedString, Pattern.CASE_INSENSITIVE);
 
+        exclusions = new HashSet<>();
+        exclusionsRegexPattern = Pattern.compile("(NULL)", Pattern.CASE_INSENSITIVE);
+
+    }
+
+    public Synonyms(String[] array, String[] exclusionsArray) {
+        synonyms = new HashSet<>();
+        synonyms.addAll(Arrays.asList(array));
+        String joinedString = String.join("\\b|\\b", synonyms);
+        joinedString = joinedString.replaceAll("^|$", "\\\\b");
+        regexPattern = Pattern.compile(joinedString, Pattern.CASE_INSENSITIVE);
+
+        exclusions = new HashSet<>();
+        exclusions.addAll(Arrays.asList(exclusionsArray));
+        String joinedexclusionsString = String.join("\\b|\\b", exclusions);
+        joinedexclusionsString = joinedexclusionsString.replaceAll("^|$", "\\\\b");
+        exclusionsRegexPattern = Pattern.compile(joinedexclusionsString, Pattern.CASE_INSENSITIVE);
     }
 
     public void add(String string) {
@@ -46,19 +55,15 @@ public class Synonyms {
     }
 
     public boolean contains(String string) {
-        return synonyms.contains(string) || regexPattern.matcher(string).find();
+        return (synonyms.contains(string) || regexPattern.matcher(string).find()) && (!exclusions.contains(string) || !exclusionsRegexPattern.matcher(string).find());
     }
 
     public String toString() {
-        return "This set of synonyms contains: " + synonyms.toString();
+        return "This set of synonyms contains: " + synonyms.toString() + "\nThis exludes: " + exclusions.toString();
     }
 
     public void printRegexPattern() {
         System.out.println(regexPattern);
     }
-
-//    public boolean matchPattern(String string) {
-//
-//    }
 
 }

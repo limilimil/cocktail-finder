@@ -6,7 +6,7 @@
         {
             "quantity": "1 (6 oz)",
             "measure": "can",
-            "ingredient": "frozen limeade"
+            "ingredient": "lime juice"
         },
         {
             "quantity": "2",
@@ -21,7 +21,7 @@
     ],
     "directions": [
         "Fill blender with crushed ice.",
-        "Pour in limeade concentrate, tequila and triple sec.",
+        "Pour in lime juice, tequila and triple sec.",
         "Blend until smooth. Pour into glasses and serve."
     ],
     "image": "margarita.jpg",

@@ -26,7 +26,6 @@ public class Ingredient {
         this.quantity = quantity;
         this.measure = measure;
         this.name = name;
-        this.synonyms = Thesaurus.getSynonyms(Utility.normalizeString(name));
     }
 
     public boolean compareSynonyms(String string) {
